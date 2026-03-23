@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - Grissenda Euphorias CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            Grissenda CRM
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customers.html" class="active"><i class="fas fa-users"></i> Customers</a>
+            <a href="deals.html"><i class="fas fa-handshake"></i> Deals</a>
+            <a href="tasks.html"><i class="fas fa-tasks"></i> Tasks</a>
+            <a href="interactions.html"><i class="fas fa-comments"></i> Interactions</a>
+            <a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="page-title">Customer Management</div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openModal()">+ Add Customer</button>
+            </div>
+        </header>
+
+        <div class="header" style="background: transparent; box-shadow: none; padding: 0;">
+            <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                <input type="text" id="customerSearch" class="form-control" placeholder="Search customers by name, email or location..." onkeyup="filterCustomers()">
+            </div>
+        </div>
+
+        <!-- Customer Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Location</th>
+                        <th>Joined Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="customerTableBody">
+                    <!-- Customers will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Add/Edit Customer Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="margin-bottom: 20px;">Add New Customer</h2>
+            <form id="customerForm">
+                <input type="hidden" id="customerId">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="customerName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="customerPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" id="customerEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="customerLocation" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="customerNotes" class="form-control" rows="3"></textarea>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/customers.js"></script>
+</body>
+</html>

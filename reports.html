@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Grissenda Euphorias CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            Grissenda CRM
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+            <a href="deals.html"><i class="fas fa-handshake"></i> Deals</a>
+            <a href="tasks.html"><i class="fas fa-tasks"></i> Tasks</a>
+            <a href="interactions.html"><i class="fas fa-comments"></i> Interactions</a>
+            <a href="reports.html" class="active"><i class="fas fa-chart-line"></i> Reports</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="page-title">Reports & Analytics</div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print"></i> Export to PDF</button>
+            </div>
+        </header>
+
+        <!-- Stats Summary -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Total Revenue</span>
+                <span class="stat-value" id="rep-total-revenue">R 0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Conversion Rate</span>
+                <span class="stat-value" id="rep-conversion-rate">0%</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">New Enquiries</span>
+                <span class="stat-value" id="rep-enquiries">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Deals Won</span>
+                <span class="stat-value" id="rep-deals-won">0</span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div class="stat-card">
+                <span class="stat-label">Deals by Stage</span>
+                <canvas id="dealsStageChart" height="300"></canvas>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Interaction Types</span>
+                <canvas id="interactionsChart" height="300"></canvas>
+            </div>
+        </div>
+
+        <div class="table-container" style="margin-top: 24px;">
+            <div style="padding: 20px; font-weight: 600; border-bottom: 1px solid #eee;">Top Performing Customers (by Value)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Location</th>
+                        <th>Total Value</th>
+                        <th>Deals Count</th>
+                    </tr>
+                </thead>
+                <tbody id="topCustomersTable">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - Grissenda Euphorias CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            Grissenda CRM
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+            <a href="deals.html"><i class="fas fa-handshake"></i> Deals</a>
+            <a href="tasks.html" class="active"><i class="fas fa-tasks"></i> Tasks</a>
+            <a href="interactions.html"><i class="fas fa-comments"></i> Interactions</a>
+            <a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="page-title">Tasks & Reminders</div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openModal()">+ Add Task</button>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Pending Tasks</span>
+                <span class="stat-value" id="pending-tasks-count">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Overdue Tasks</span>
+                <span class="stat-value" id="overdue-tasks-count" style="color: var(--danger-color);">0</span>
+            </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="50">Done</th>
+                        <th>Task Title</th>
+                        <th>Related Customer</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                    <!-- Tasks will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Add/Edit Task Modal -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="margin-bottom: 20px;">Add New Task</h2>
+            <form id="taskForm">
+                <input type="hidden" id="taskId">
+                <div class="form-group">
+                    <label>Task Title *</label>
+                    <input type="text" id="taskTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Related Customer</label>
+                    <select id="taskCustomer" class="form-control">
+                        <option value="">None</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Due Date *</label>
+                    <input type="date" id="taskDueDate" class="form-control" required>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/tasks.js"></script>
+</body>
+</html>

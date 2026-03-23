@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Grissenda Euphorias CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            Grissenda CRM
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+            <a href="deals.html"><i class="fas fa-handshake"></i> Deals</a>
+            <a href="tasks.html"><i class="fas fa-tasks"></i> Tasks</a>
+            <a href="interactions.html"><i class="fas fa-comments"></i> Interactions</a>
+            <a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="page-title">Dashboard Overview</div>
+            <div class="user-info">
+                <span>Welcome, Admin</span>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Total Customers</span>
+                <span class="stat-value" id="total-customers">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Active Deals</span>
+                <span class="stat-value" id="active-deals">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Completed Sales</span>
+                <span class="stat-value" id="completed-sales">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Total Revenue</span>
+                <span class="stat-value" id="total-revenue">R 0</span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+            <!-- Chart Section -->
+            <div class="stat-card">
+                <span class="stat-label">Sales Performance</span>
+                <canvas id="salesChart" height="200"></canvas>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="stat-card">
+                <span class="stat-label">Recent Activity</span>
+                <div id="recent-activity" style="margin-top: 16px;">
+                    <!-- Activity items will be loaded here -->
+                    <p style="color: var(--text-muted); font-size: 0.875rem;">No recent activity</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const stats = StorageService.getStats();
+            document.getElementById('total-customers').textContent = stats.totalCustomers;
+            document.getElementById('active-deals').textContent = stats.activeDeals;
+            document.getElementById('completed-sales').textContent = stats.completedSales;
+            document.getElementById('total-revenue').textContent = `R ${stats.totalRevenue.toLocaleString()}`;
+
+            // Simple Chart.js implementation
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Sales (R)',
+                        data: [1200, 1900, 3000, 5000, 2000, 3000],
+                        borderColor: '#3b82f6',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Load recent activity
+            const interactions = StorageService.getInteractions().slice(-5).reverse();
+            const activityContainer = document.getElementById('recent-activity');
+            if (interactions.length > 0) {
+                activityContainer.innerHTML = interactions.map(i => `
+                    <div style="padding: 8px 0; border-bottom: 1px solid #eee;">
+                        <div style="font-weight: 500; font-size: 0.875rem;">${i.type}: ${i.notes.substring(0, 30)}...</div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem;">${new Date(i.createdAt).toLocaleDateString()}</div>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>

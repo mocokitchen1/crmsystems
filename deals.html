@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deals - Grissenda Euphorias CRM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            Grissenda CRM
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+            <a href="deals.html" class="active"><i class="fas fa-handshake"></i> Deals</a>
+            <a href="tasks.html"><i class="fas fa-tasks"></i> Tasks</a>
+            <a href="interactions.html"><i class="fas fa-comments"></i> Interactions</a>
+            <a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="page-title">Sales Pipeline</div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openModal()">+ New Deal</button>
+            </div>
+        </header>
+
+        <!-- Kanban Board View -->
+        <div class="kanban-board" id="kanbanBoard">
+            <div class="kanban-column" data-status="New Enquiry">
+                <div class="kanban-header">New Enquiry <span class="count">0</span></div>
+                <div class="kanban-items" id="new-enquiry-list"></div>
+            </div>
+            <div class="kanban-column" data-status="Proposal Sent">
+                <div class="kanban-header">Proposal Sent <span class="count">0</span></div>
+                <div class="kanban-items" id="proposal-sent-list"></div>
+            </div>
+            <div class="kanban-column" data-status="In Preparation">
+                <div class="kanban-header">In Preparation <span class="count">0</span></div>
+                <div class="kanban-items" id="in-prep-list"></div>
+            </div>
+            <div class="kanban-column" data-status="Delivered">
+                <div class="kanban-header">Delivered <span class="count">0</span></div>
+                <div class="kanban-items" id="delivered-list"></div>
+            </div>
+            <div class="kanban-column" data-status="Closed Won">
+                <div class="kanban-header">Closed Won <span class="count">0</span></div>
+                <div class="kanban-items" id="closed-won-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Deal Modal -->
+    <div id="dealModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="margin-bottom: 20px;">Create New Deal</h2>
+            <form id="dealForm">
+                <input type="hidden" id="dealId">
+                <div class="form-group">
+                    <label>Customer *</label>
+                    <select id="dealCustomer" class="form-control" required>
+                        <option value="">Select Customer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Deal Value (R) *</label>
+                    <input type="number" id="dealValue" class="form-control" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="dealStatus" class="form-control">
+                        <option value="New Enquiry">New Enquiry</option>
+                        <option value="Proposal Sent">Proposal Sent</option>
+                        <option value="Order Confirmed">Order Confirmed</option>
+                        <option value="In Preparation">In Preparation</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Payment Received">Payment Received</option>
+                        <option value="Closed Won">Closed Won</option>
+                        <option value="Closed Lost">Closed Lost</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="dealNotes" class="form-control" rows="3"></textarea>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Deal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/deals.js"></script>
+</body>
+</html>
